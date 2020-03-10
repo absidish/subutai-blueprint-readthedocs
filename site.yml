@@ -28,6 +28,7 @@
       with_items:
         - git
         - python3-pip
+        - python-pip
         - virtualenv
         - python3-venv
         - pandoc
