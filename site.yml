@@ -48,6 +48,7 @@
         - sphinx-autobuild
         - recommonmark
         - sphinx_rtd_theme
+      executable: pip3
     
     - name: Create Virtual Env Dir
       file:
@@ -66,12 +67,14 @@
       pip:
         virtualenv: /srv/rtd/rtd_env
         requirements: /srv/rtd/source/requirements/pip.txt
+      executable: pip3
 
     - name: Install flup 
       pip:
         name: flup
         virtualenv: /srv/rtd/rtd_env
-
+      executable: pip3
+      
     - name: RTD Server migrate
       django_manage:
           app_path: /srv/rtd/source
@@ -94,14 +97,14 @@
       pip:
           name: uwsgi
           virtualenv: /srv/rtd/rtd_env
-
+      executable: pip3
+      
     - name: Configure Rtd ini file 
       copy:
           src:  uwsgi/rtd.ini
           dest: /srv/rtd/source/readthedocs/rtd.ini
           owner: root
           group: root
-
 
     - name: RTD uWSGI Server Up 
       shell: . ../rtd_env/bin/activate && uwsgi --ini readthedocs/rtd.ini
